@@ -2,7 +2,7 @@ pkgbase = tachyon-fetch
 	pkgdesc = Cockpit-grade system fetch with a built-in configurator and distro logos
 	pkgver = 0.7.1
 	pkgrel = 1
-	url = https://github.com/mohamedsalahi/tachyon-fetch
+	url = https://github.com/sifr-salahy/tachyon-fetch
 	arch = x86_64
 	arch = aarch64
 	license = MIT
@@ -10,7 +10,7 @@ pkgbase = tachyon-fetch
 	makedepends = rust
 	depends = gcc-libs
 	depends = fontconfig
-	source = tachyon-fetch-0.7.0.tar.gz::https://github.com/mohamedsalahi/tachyon-fetch/archive/refs/tags/v0.7.1.tar.gz
+	source = tachyon-fetch-0.7.0.tar.gz::https://github.com/sifr-salahy/tachyon-fetch/archive/refs/tags/v0.7.1.tar.gz
 	sha256sums = b0f53b9b0947f5d96bfbb31c8ab241db251fe35830e921be52d2260a0f69b502
 
 pkgname = tachyon-fetch

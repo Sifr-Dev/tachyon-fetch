@@ -1,9 +1,9 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: tachyon-fetch
-Source: https://github.com/mohamedsalahi/tachyon-fetch
+Source: https://github.com/sifr-salahy/tachyon-fetch
 
 Files: *
-Copyright: 2026 Mohamed Salahi
+Copyright: 2026 Mohamed Salahy
 License: MIT
 
 Files: logos/*

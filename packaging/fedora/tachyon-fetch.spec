@@ -3,7 +3,7 @@ Version:        0.7.1
 Release:        1%{?dist}
 Summary:        Cockpit-grade system fetch with a configurator and distro logos
 License:        MIT
-URL:            https://github.com/mohamedsalahi/tachyon-fetch
+URL:            https://github.com/sifr-salahy/tachyon-fetch
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         cargo-rpm-profile.patch
 BuildRequires:  rust-packaging
@@ -34,8 +34,8 @@ install -Dm755 target/rpm/tachyon %{buildroot}%{_bindir}/tachyon
 %license logos/LICENSE-fastfetch
 
 %changelog
-* Tue Oct 20 2026 Mohamed Salahi <264395179+mohamedsalahi@users.noreply.github.com> - 0.7.1-1
+* Tue Oct 20 2026 Mohamed Salahy <264395179+sifr-salahy@users.noreply.github.com> - 0.7.1-1
 - Update to 0.7.1
 
-* Tue Oct 20 2026 Mohamed Salahi <264395179+mohamedsalahi@users.noreply.github.com> - 0.7.0-1
+* Tue Oct 20 2026 Mohamed Salahy <264395179+sifr-salahy@users.noreply.github.com> - 0.7.0-1
 - Initial package
