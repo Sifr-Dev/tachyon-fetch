@@ -13,7 +13,7 @@ only; publishing to each distro is still pending. Release tarball:
 | 4 | Ubuntu, Mint | apt | `debian/` | `dpkg-buildpackage` + `.deb` in CI/release; archive publish pending |
 | 5 | Gentoo | portage | `gentoo/` | CRATES generated and checked in CI; Manifest/overlay pending |
 
-The release tarball is `https://github.com/Sifr-dev/tachyon-fetch/archive/refs/tags/v0.7.1.tar.gz`.
+The release tarball is `https://github.com/Sifr-Dev/tachyon-fetch/archive/refs/tags/v0.7.1.tar.gz`.
 Packaging files live in the repository after the tag, so the checksum
 above is not self-referential. For the next release:
 

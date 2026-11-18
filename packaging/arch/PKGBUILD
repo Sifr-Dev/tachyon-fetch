@@ -1,10 +1,10 @@
-# Maintainer: Mohamed Salahy <264395179+Sifr-dev@users.noreply.github.com>
+# Maintainer: Mohamed Salahy <264395179+Sifr-Dev@users.noreply.github.com>
 pkgname=tachyon-fetch
 pkgver=0.7.1
 pkgrel=1
 pkgdesc='Cockpit-grade system fetch with a built-in configurator and distro logos'
 arch=('x86_64' 'aarch64')
-url='https://github.com/Sifr-dev/tachyon-fetch'
+url='https://github.com/Sifr-Dev/tachyon-fetch'
 license=('MIT')
 depends=('gcc-libs' 'fontconfig')
 makedepends=('cargo' 'rust')

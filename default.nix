@@ -28,7 +28,7 @@ pkgs.rustPlatform.buildRustPackage {
 
   meta = {
     description = "Cockpit-grade system fetch with a built-in configurator and distro logos";
-    homepage = "https://github.com/Sifr-dev/tachyon-fetch";
+    homepage = "https://github.com/Sifr-Dev/tachyon-fetch";
     license = pkgs.lib.licenses.mit;
     mainProgram = "tachyon";
     platforms = pkgs.lib.platforms.linux;

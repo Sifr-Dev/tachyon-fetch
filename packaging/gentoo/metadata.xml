@@ -2,10 +2,10 @@
 <!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
   <maintainer type="person">
-    <email>264395179+Sifr-dev@users.noreply.github.com</email>
+    <email>264395179+Sifr-Dev@users.noreply.github.com</email>
     <name>Mohamed Salahy</name>
   </maintainer>
   <upstream>
-    <remote-id type="github">Sifr-dev/tachyon-fetch</remote-id>
+    <remote-id type="github">Sifr-Dev/tachyon-fetch</remote-id>
   </upstream>
 </pkgmetadata>
