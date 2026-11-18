@@ -1,4 +1,4 @@
 version=4
 opts="filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%tachyon-fetch-$1.tar.gz%" \
-   https://github.com/sifr-salahy/tachyon-fetch/tags \
+   https://github.com/Sifr-dev/tachyon-fetch/tags \
    @ANY_VERSION@\.tar\.gz

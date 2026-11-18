@@ -88,7 +88,7 @@ jobs:
           VERSION="${{ steps.version.outputs.value }}"
           mkdir -p /tmp/rpmbuild/SOURCES /tmp/rpmbuild/SPECS
           curl -L --fail -o "/tmp/rpmbuild/SOURCES/tachyon-fetch-${VERSION}.tar.gz" \
-            "https://github.com/sifr-salahy/tachyon-fetch/archive/refs/tags/v${VERSION}.tar.gz"
+            "https://github.com/Sifr-dev/tachyon-fetch/archive/refs/tags/v${VERSION}.tar.gz"
           cp packaging/fedora/tachyon-fetch.spec /tmp/rpmbuild/SPECS/
           cp packaging/fedora/*.patch /tmp/rpmbuild/SOURCES/
           rpmbuild -ba --nodeps \
