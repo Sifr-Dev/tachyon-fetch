@@ -64,7 +64,7 @@ It is designed for people who want the truth about their systems at a glance —
 ## ◈ Install
 
 ```sh
-git clone https://github.com/sifr-salahy/tachyon-fetch.git
+git clone https://github.com/Sifr-Dev/tachyon-fetch.git
 cd tachyon-fetch
 cargo build --release
 install -Dm755 target/release/tachyon ~/.local/bin/tachyon
@@ -73,7 +73,7 @@ install -Dm755 target/release/tachyon ~/.local/bin/tachyon
 Or straight from the source tree:
 
 ```sh
-cargo install --git https://github.com/sifr-salahy/tachyon-fetch --locked
+cargo install --git https://github.com/Sifr-Dev/tachyon-fetch --locked
 ```
 
 The crate is named `tachyon-fetch`; the installed command is `tachyon`. A recent stable Rust toolchain is the only build requirement.

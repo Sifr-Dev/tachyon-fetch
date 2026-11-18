@@ -6,7 +6,7 @@ rust-version = "1.88"
 license = "MIT"
 authors = ["Mohamed Salahy"]
 description = "A cockpit-grade system fetch engine with a built-in configurator"
-repository = "https://github.com/sifr-salahy/tachyon-fetch"
+repository = "https://github.com/Sifr-Dev/tachyon-fetch"
 keywords = ["fetch", "system-information", "neofetch", "tui", "cli"]
 categories = ["command-line-utilities"]
 

@@ -3,9 +3,9 @@ EAPI=8
 inherit cargo
 
 DESCRIPTION="Cockpit-grade system fetch with a configurator and distro logos"
-HOMEPAGE="https://github.com/sifr-salahy/tachyon-fetch"
+HOMEPAGE="https://github.com/Sifr-Dev/tachyon-fetch"
 SRC_URI="
-	https://github.com/sifr-salahy/tachyon-fetch/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
+	https://github.com/Sifr-Dev/tachyon-fetch/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz
 	$(cargo_crate_uris)
 "
 S="${WORKDIR}/${PN}-${PV}"
