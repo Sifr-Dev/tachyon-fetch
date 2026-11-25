@@ -179,9 +179,10 @@ jobs:
           SHA=$(grep -oE "^sha256sums=\('[0-9a-f]{64}'\)" packaging/arch/PKGBUILD | grep -oE "[0-9a-f]{64}")
           test -n "$SHA"
           grep -q "$SHA" packaging/fedora/sources
-          EXPECTED="sha256-$(python3 -c "import base64,sys; print(base64.b64encode(bytes.fromhex(sys.argv[1])).decode())" "$SHA")"
-          grep -q "hash = \"$EXPECTED\";" packaging/nixpkgs/package.nix
-          echo "all recipes pin $SHA"
+          grep -q "tag = \"v\${finalAttrs.version}\";" packaging/nixpkgs/package.nix
+          # fetchFromGitHub hashes the unpacked tree recursively, not the tarball.
+          grep -q 'hash = "sha256-ZcjI+xsaVa1chF40FGxW4N+L46w4u4ClI2BDcQvGqNo=";' packaging/nixpkgs/package.nix
+          echo "all recipes pin $SHA and the verified Nix source-tree hash"
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')
