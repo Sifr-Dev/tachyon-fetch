@@ -26,10 +26,13 @@ supported.
 %cargo_build
 
 %install
-install -Dm755 target/rpm/tachyon %{buildroot}%{_bindir}/tachyon
+# The upstream binary is called "tachyon", which the Fedora "tachyon"
+# package (a ray tracer) already owns at %{_bindir}/tachyon. Install it
+# under the package name to avoid a file conflict.
+install -Dm755 target/rpm/tachyon %{buildroot}%{_bindir}/%{name}
 
 %files
-%{_bindir}/tachyon
+%{_bindir}/%{name}
 %license LICENSE
 %license logos/LICENSE-fastfetch
 

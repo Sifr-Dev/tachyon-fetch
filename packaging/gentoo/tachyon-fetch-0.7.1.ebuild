@@ -1,5 +1,9 @@
 EAPI=8
 
+# Cargo.toml declares rust-version = "1.88". RUST_MIN_VER is read by the
+# cargo eclass while it is being inherited, so it must be set first.
+RUST_MIN_VER="1.88"
+
 inherit cargo
 
 DESCRIPTION="Cockpit-grade system fetch with a configurator and distro logos"
@@ -13,7 +17,6 @@ S="${WORKDIR}/${PN}-${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE=""
 
 DEPEND=""
 RDEPEND="media-libs/fontconfig"
