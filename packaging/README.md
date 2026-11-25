@@ -16,7 +16,7 @@ blocks an external submission.
 | Channel | File | Locally verified | External blocker |
 |---|---|---|---|
 | AUR (user repo) | `arch/PKGBUILD`, `arch/.SRCINFO`, `arch/LICENSE` | `makepkg -s` builds, package installs, binary runs | Needs an AUR account, an SSH key registered in it, and a human review of the name conflict below |
-| nixpkgs (PR) | `nixpkgs/package.nix` | Not built: no Nix on the packaging host | `cargoHash` is a placeholder; must be computed on a Nix machine, plus a `maintainers/maintainer-list.nix` entry and a PR |
+| nixpkgs (PR) | `nixpkgs/package.nix` | Full build, 62 unit + 14 CLI tests, and version install check pass on Nix 2.36.0 / Rust 1.99.1 | Needs a maintainer-list entry and a PR; no acceptance is claimed |
 | openSUSE (devel project) | `opensuse/tachyon-fetch.spec`, `.changes`, `_service` | Spec reviewed against `cargo-packaging` macros; not built | Needs an openSUSE account, `osc mkpac`, a devel project that accepts it, and `osc build` on a real target |
 | Debian/Ubuntu | `debian/` | Not built: `dpkg-buildpackage` and `debhelper` are absent here | See "Debian and Ubuntu" below; the vendoring and toolchain gaps are real |
 | Gentoo GURU | `gentoo/` | `gen-crates.py --check` passes (206 crates); ebuild syntax-checked | Needs a GURU PR; `Manifest` cannot be generated without the distfiles |
@@ -88,20 +88,26 @@ the AUR (checked via the AUR RPC and the package search API).
 `pkgs/by-name/ta/tachyon-fetch/package.nix`; it is not the same as the in-repo
 `default.nix`, which builds from a checkout and uses `cargoLock`.
 
-Before the file is usable:
+Before submitting:
 
-1. Replace `cargoHash = lib.fakeHash` with the real value. Build once, read the
-   `got:` hash from the error, and paste it in.
-2. Add an entry to `maintainers/maintainer-list.nix` and reference it from
+1. The source `hash` is Nix's recursive hash of the unpacked tag tree, not the
+   SHA256 of the `.tar.gz` file. The verified value is
+   `sha256-ZcjI+xsaVa1chF40FGxW4N+L46w4u4ClI2BDcQvGqNo=`.
+2. `cargoHash` is the verified value
+   `sha256-pkSuVtVWv/LELCSzF/CEFZwvFCXnunVhfS8Usp4dAP8=`, obtained by
+   running Nix's actual vendor derivation.
+3. Add an entry to `maintainers/maintainer-list.nix` and reference it from
    `meta.maintainers`; a package PR with an empty maintainer list is normally
    sent back.
-3. Confirm the `src` hash. It is the SRI encoding of the tag tarball and is
-   already correct (`sha256-sPU7mwlH9dlr+7McirJB2yUf41gw6SG+UtImCg9ptQI=`
-   equals the SHA256 above).
+4. The tested evaluation helper pins nixpkgs revision
+   `2786a2a72088ecf32aea5b3ec52099e6a7cff78f`, with Rust 1.99.1.
+   The older `nixos-25.05` snapshot provided Rust 1.86 and correctly failed
+   the project's declared 1.88 MSRV.
 
-A PR also needs a commit message in the `tachyon-fetch: init at 0.7.1` form and
-a filled-in PR template reporting the platforms actually built. None of this
-has been done.
+The complete package build and its 62 unit tests, 14 CLI tests, and version
+install check passed with Nix 2.36.0. A PR still needs a commit message in the
+`tachyon-fetch: init at 0.7.1` form and a filled-in PR template reporting the
+platforms actually built. No submission or acceptance is claimed.
 
 ## openSUSE
 

@@ -15,13 +15,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "Sifr-Dev";
     repo = "tachyon-fetch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-sPU7mwlH9dlr+7McirJB2yUf41gw6SG+UtImCg9ptQI=";
+    hash = "sha256-ZcjI+xsaVa1chF40FGxW4N+L46w4u4ClI2BDcQvGqNo=";
   };
 
-  # Placeholder: regenerate with
-  #   nix-build -A tachyon-fetch 2>&1 | grep 'got:'
-  # or `nix-prefetch-url` on the vendored crate set before opening the PR.
-  cargoHash = lib.fakeHash;
+  cargoHash = "sha256-pkSuVtVWv/LELCSzF/CEFZwvFCXnunVhfS8Usp4dAP8=";
 
   nativeBuildInputs = [ makeWrapper ];
 
