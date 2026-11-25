@@ -160,11 +160,28 @@ jobs:
           VERSION=$(grep -m1 '^version' Cargo.toml | cut -d'"' -f2)
           grep -qx "pkgver=$VERSION" packaging/arch/PKGBUILD
           grep -Eq "^Version:[[:space:]]*$VERSION$" packaging/fedora/tachyon-fetch.spec
+          grep -Eq "^Version:[[:space:]]*$VERSION$" packaging/opensuse/tachyon-fetch.spec
+          grep -Eq "^  version = \"$VERSION\";" packaging/nixpkgs/package.nix
           grep -q "($VERSION-1)" packaging/debian/changelog
           test -f "packaging/gentoo/tachyon-fetch-$VERSION.ebuild"
       - run: python3 packaging/gentoo/gen-crates.py --check packaging/gentoo/tachyon-fetch-*.ebuild
       - run: rpmspec -q --qf '%{NAME} %{VERSION}\n' packaging/fedora/tachyon-fetch.spec
+      - run: rpmspec -q --qf '%{NAME} %{VERSION}\n' packaging/opensuse/tachyon-fetch.spec
       - run: dpkg-parsechangelog -l packaging/debian/changelog > /dev/null
+      - name: packaging sources are self-consistent
+        run: |
+          # The AUR tree must not drift from the PKGBUILD it was generated from.
+          cd packaging/arch
+          makepkg --printsrcinfo > /tmp/expected-srcinfo 2>/dev/null || true
+          if command -v makepkg >/dev/null; then diff -u .SRCINFO /tmp/expected-srcinfo; fi
+      - name: source hashes agree across recipes
+        run: |
+          SHA=$(grep -oE "^sha256sums=\('[0-9a-f]{64}'\)" packaging/arch/PKGBUILD | grep -oE "[0-9a-f]{64}")
+          test -n "$SHA"
+          grep -q "$SHA" packaging/fedora/sources
+          EXPECTED="sha256-$(python3 -c "import base64,sys; print(base64.b64encode(bytes.fromhex(sys.argv[1])).decode())" "$SHA")"
+          grep -q "hash = \"$EXPECTED\";" packaging/nixpkgs/package.nix
+          echo "all recipes pin $SHA"
 
   release:
     if: startsWith(github.ref, 'refs/tags/v')

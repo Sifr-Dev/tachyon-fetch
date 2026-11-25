@@ -4,13 +4,12 @@ pkgbase = tachyon-fetch
 	pkgrel = 1
 	url = https://github.com/Sifr-Dev/tachyon-fetch
 	arch = x86_64
-	arch = aarch64
 	license = MIT
 	makedepends = cargo
 	makedepends = rust
 	depends = gcc-libs
 	depends = fontconfig
-	source = tachyon-fetch-0.7.0.tar.gz::https://github.com/Sifr-Dev/tachyon-fetch/archive/refs/tags/v0.7.1.tar.gz
+	source = tachyon-fetch-0.7.1.tar.gz::https://github.com/Sifr-Dev/tachyon-fetch/archive/refs/tags/v0.7.1.tar.gz
 	sha256sums = b0f53b9b0947f5d96bfbb31c8ab241db251fe35830e921be52d2260a0f69b502
 
 pkgname = tachyon-fetch

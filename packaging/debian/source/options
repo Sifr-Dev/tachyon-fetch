@@ -1,0 +1,4 @@
+# Exclude build artefacts from the source package.
+target
+result
+.git

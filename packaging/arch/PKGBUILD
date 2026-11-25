@@ -3,7 +3,7 @@ pkgname=tachyon-fetch
 pkgver=0.7.1
 pkgrel=1
 pkgdesc='Cockpit-grade system fetch with a built-in configurator and distro logos'
-arch=('x86_64' 'aarch64')
+arch=('x86_64')
 url='https://github.com/Sifr-Dev/tachyon-fetch'
 license=('MIT')
 depends=('gcc-libs' 'fontconfig')
@@ -11,19 +11,31 @@ makedepends=('cargo' 'rust')
 source=("$pkgname-$pkgver.tar.gz::$url/archive/refs/tags/v$pkgver.tar.gz")
 sha256sums=('b0f53b9b0947f5d96bfbb31c8ab241db251fe35830e921be52d2260a0f69b502')
 
+prepare() {
+  cd "$pkgname-$pkgver"
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target host-tuple
+}
+
 build() {
   cd "$pkgname-$pkgver"
-  cargo build --release --locked
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo build --frozen --release
 }
 
 check() {
   cd "$pkgname-$pkgver"
-  cargo test --release --locked
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_TARGET_DIR=target
+  cargo test --frozen --release
 }
 
 package() {
   cd "$pkgname-$pkgver"
-  install -Dm755 target/release/tachyon "$pkgdir/usr/bin/tachyon"
+  # The upstream binary is named "tachyon", which the official extra/tachyon
+  # package (ray tracer) already owns. Install under the package name instead.
+  install -Dm755 target/release/tachyon "$pkgdir/usr/bin/$pkgname"
   install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
   install -Dm644 logos/LICENSE-fastfetch "$pkgdir/usr/share/licenses/$pkgname/LICENSE-fastfetch"
 }
