@@ -308,9 +308,9 @@ mod tests {
                     Weird Collection\t/usr/share/fonts/collection.ttc\n\
                     Broken\tno-font.txt\n";
         let fonts = parse_fc_list(text);
-        assert!(fonts.contains(&"DejaVu Sans".to_string()));
-        assert!(fonts.contains(&"DejaVu Sans Mono".to_string()));
-        assert!(fonts.contains(&"JetBrainsMono Nerd Font".to_string()));
+        assert!(fonts.iter().any(|name| name == "DejaVu Sans"));
+        assert!(fonts.iter().any(|name| name == "DejaVu Sans Mono"));
+        assert!(fonts.iter().any(|name| name == "JetBrainsMono Nerd Font"));
         assert!(!fonts.iter().any(|name| name == "Weird Collection"));
     }
 
