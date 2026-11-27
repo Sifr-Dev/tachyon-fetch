@@ -67,6 +67,21 @@ staged root and running `tachyon-fetch --version` prints `tachyon 0.7.1`.
 it is separate from the project's MIT licence, which ships as
 `/usr/share/licenses/tachyon-fetch/LICENSE`.
 
+`.SRCINFO` is generated, never hand-edited, and CI enforces that it matches its
+PKGBUILD. Check it with:
+
+```
+python3 packaging/arch/check-srcinfo.py
+```
+
+The check compares the PKGBUILD's fields against `.SRCINFO` without needing
+`makepkg`, then runs `makepkg --printsrcinfo` and requires its output to match
+the committed file byte for byte. Pass `--require-makepkg` to fail when
+`makepkg` is unavailable instead of falling back to the field comparison; the
+`aur-srcinfo` CI job runs exactly that inside `archlinux:latest`, as a
+non-root user, because `makepkg` refuses to run as root. A missing or
+space-indented `.SRCINFO` therefore fails CI rather than passing silently.
+
 To publish: create the AUR account, register an SSH key, then
 
 ```

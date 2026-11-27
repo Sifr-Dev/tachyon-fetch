@@ -171,9 +171,9 @@ jobs:
       - name: packaging sources are self-consistent
         run: |
           # The AUR tree must not drift from the PKGBUILD it was generated from.
-          cd packaging/arch
-          makepkg --printsrcinfo > /tmp/expected-srcinfo 2>/dev/null || true
-          if command -v makepkg >/dev/null; then diff -u .SRCINFO /tmp/expected-srcinfo; fi
+          # This compares fields without needing makepkg; the authoritative
+          # makepkg-generated comparison runs in the aur-srcinfo job below.
+          python3 packaging/arch/check-srcinfo.py
       - name: source hashes agree across recipes
         run: |
           SHA=$(grep -oE "^sha256sums=\('[0-9a-f]{64}'\)" packaging/arch/PKGBUILD | grep -oE "[0-9a-f]{64}")
@@ -184,9 +184,28 @@ jobs:
           grep -q 'hash = "sha256-ZcjI+xsaVa1chF40FGxW4N+L46w4u4ClI2BDcQvGqNo=";' packaging/nixpkgs/package.nix
           echo "all recipes pin $SHA and the verified Nix source-tree hash"
 
+  aur-srcinfo:
+    # The AUR rejects a push whose .SRCINFO disagrees with its PKGBUILD, so this
+    # runs the real generator on real Arch tooling. --require-makepkg turns a
+    # missing makepkg into a failure instead of silently skipping the check.
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+    steps:
+      - run: pacman -Syu --noconfirm git python sudo base-devel pacman-contrib
+      - uses: actions/checkout@v5
+      - name: .SRCINFO matches makepkg output
+        run: |
+          useradd -m builder
+          cp -r packaging/arch /tmp/archpkg
+          chown -R builder:builder /tmp/archpkg
+          cp /tmp/archpkg/check-srcinfo.py /tmp/check-srcinfo.py
+          chown builder:builder /tmp/check-srcinfo.py
+          sudo -u builder python3 /tmp/check-srcinfo.py \
+            --arch-dir /tmp/archpkg --require-makepkg
+
   release:
     if: startsWith(github.ref, 'refs/tags/v')
-    needs: [quality, arch, fedora, ubuntu, nix, packaging]
+    needs: [quality, arch, fedora, ubuntu, nix, packaging, aur-srcinfo]
     runs-on: ubuntu-latest
     permissions:
       contents: write
