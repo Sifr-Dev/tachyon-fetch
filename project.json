@@ -1,0 +1,9 @@
+{
+  "name": "tachyon-fetch",
+  "description": "Terminal system-readout / fetch tool",
+  "stack": [
+    "cargo"
+  ],
+  "status": "active",
+  "primary_language": "Rust"
+}
